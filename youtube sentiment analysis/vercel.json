@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/analyze": {
+      "runtime": "python3.8",
+      "includeFiles": ["requirements.txt"]
+    }
+  }
+}
