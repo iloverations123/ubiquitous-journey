@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/analyze": {
+    "api/youtube_comments": {
       "runtime": "python3.8",
       "includeFiles": ["requirements.txt"]
     }
