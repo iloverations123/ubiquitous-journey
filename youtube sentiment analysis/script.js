@@ -3,7 +3,7 @@ function analyzeSentiment() {
     const youtubeUrl = document.getElementById('youtubeUrl').value;
 
     // Make an AJAX request to the backend for sentiment analysis
-    const backendUrl = '/analyze';
+    const backendUrl = '/api/youtube_comments.py';  // Adjust based on your project structure
     const data = { url: youtubeUrl };
 
     fetch(backendUrl, {
