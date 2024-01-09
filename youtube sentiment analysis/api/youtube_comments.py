@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+# api/analyze.py
 from youtube_comment_downloader import YoutubeCommentDownloader, SORT_BY_RECENT
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import tensorflow as tf
 import pickle
-
-app = Flask(__name__)
 
 # Load the tokenizer
 with open('tokenizer.pkl', 'rb') as tokenizer_file:
@@ -29,12 +27,7 @@ def predict_sentiment(input_text):
     predicted_sentiment = numbers_to_words[predicted_label_index]
     return predicted_sentiment
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/analyze', methods=['POST'])
-def analyze():
+def handler(request):
     try:
         data = request.get_json()
         youtube_url = data.get('url')
@@ -49,9 +42,6 @@ def analyze():
             sentiment_score = predict_sentiment(comment['text'])
             results.append({'comment': comment['text'], 'sentiment': sentiment_score})
 
-        return jsonify(results)
+        return results
     except Exception as e:
-        return jsonify({"error": str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        return {"error": str(e)}
